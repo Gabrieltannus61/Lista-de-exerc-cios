@@ -1,0 +1,76 @@
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
+
+const DATA = [
+  { id: '1', title: 'Maison Margiela', price: 'R$ 4.500' },
+  { id: '2', title: 'Balenciaga Alaska', price: 'R$ 6.200' },
+  { id: '3', title: 'Chrome Hearts', price: 'R$ 1.800' },
+  { id: '4', title: 'Rick Owens Vans', price: 'R$ 3.900' },
+  { id: '5', title: 'Geobasket', price: 'R$ 5.500' },
+];
+
+const Item = ({ title, price }) => (
+  <View style={styles.item}>
+    <View style={styles.avatar} />
+    <View>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.price}>{price}</Text>
+    </View>
+  </View>
+);
+
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Meu Haul</Text>
+      <FlatList
+        data={DATA}
+        renderItem={({ item }) => <Item title={item.title} price={item.price} />}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.list}
+      />
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    padding: 20,
+    textAlign: 'center',
+  },
+  list: {
+    paddingHorizontal: 20,
+  },
+  item: {
+    flexDirection: 'row',
+    backgroundColor: '#f9f9f9',
+    padding: 20,
+    marginVertical: 8,
+    borderRadius: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#eee',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#ddd',
+    marginRight: 15,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  price: {
+    fontSize: 14,
+    color: '#059669',
+    marginTop: 4,
+  },
+});

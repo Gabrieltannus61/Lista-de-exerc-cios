@@ -1,76 +1,67 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Image } from 'react-native';
+import { SafeAreaViewProvider } from 'react-native-safe-area-context';
+import styled, { ThemeProvider } from 'styled-components/native';
 
-const DATA = [
-  { id: '1', title: 'Maison Margiela', price: 'R$ 4.500' },
-  { id: '2', title: 'Balenciaga Alaska', price: 'R$ 6.200' },
-  { id: '3', title: 'Chrome Hearts', price: 'R$ 1.800' },
-  { id: '4', title: 'Rick Owens Vans', price: 'R$ 3.900' },
-  { id: '5', title: 'Geobasket', price: 'R$ 5.500' },
-];
+const theme = {
+  colors: {
+    primary: '#059669',
+    text: '#1f2937',
+    background: '#ffffff',
+  },
+  spacing: {
+    small: '8px',
+    medium: '16px',
+    large: '24px',
+  }
+};
 
-const Item = ({ title, price }) => (
-  <View style={styles.item}>
-    <View style={styles.avatar} />
-    <View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>{price}</Text>
-    </View>
-  </View>
-);
+const Typography = {
+  H1: styled.Text`
+    font-size: 32px;
+    font-weight: bold;
+    color: ${props => props.theme.colors.text};
+  `,
+  Body: styled.Text`
+    font-size: 16px;
+    color: ${props => props.theme.colors.text};
+  `,
+};
+
+const Card = styled.View`
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: ${props => props.$spacing || '16px'};
+  width: 90%;
+  margin: 10px;
+`;
+
+const Button = styled.TouchableOpacity`
+  background-color: ${props => props.theme.colors.primary};
+  padding: 12px;
+  border-radius: 8px;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const ButtonText = styled.Text`
+  color: white;
+  font-weight: bold;
+`;
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Meu Haul</Text>
-      <FlatList
-        data={DATA}
-        renderItem={({ item }) => <Item title={item.title} price={item.price} />}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.list}
-      />
-    </SafeAreaView>
+    <ThemeProvider theme={theme}>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Card $spacing="32px">
+          <Typography.H1>Título H1</Typography.H1>
+          <Typography.Body>Este card usa Styled Components e consome o ThemeProvider.</Typography.Body>
+          <Button>
+            <ButtonText>Styled Button</ButtonText>
+          </Button>
+        </Card>
+      </SafeAreaView>
+    </ThemeProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    padding: 20,
-    textAlign: 'center',
-  },
-  list: {
-    paddingHorizontal: 20,
-  },
-  item: {
-    flexDirection: 'row',
-    backgroundColor: '#f9f9f9',
-    padding: 20,
-    marginVertical: 8,
-    borderRadius: 10,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#eee',
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#ddd',
-    marginRight: 15,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  price: {
-    fontSize: 14,
-    color: '#059669',
-    marginTop: 4,
-  },
-});
+import { SafeAreaView } from 'react-native';

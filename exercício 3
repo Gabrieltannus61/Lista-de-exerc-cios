@@ -1,0 +1,52 @@
+import React, { useState } from 'react';
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
+
+const GridItem = () => {
+  const [active, setActive] = useState(false);
+
+  return (
+    <TouchableOpacity 
+      style={[styles.item, { backgroundColor: active ? '#059669' : '#e2e8f0' }]} 
+      onPress={() => setActive(!active)}
+    >
+      <Text style={{ color: active ? 'white' : 'black' }}>#</Text>
+    </TouchableOpacity>
+  );
+};
+
+export default function App() {
+  const items = Array.from({ length: 9 });
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.grid}>
+        {items.map((_, index) => (
+          <GridItem key={index} />
+        ))}
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8fafc',
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: 300,
+    height: 300,
+  },
+  item: {
+    width: '33.33%',
+    height: '33.33%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+  },
+});

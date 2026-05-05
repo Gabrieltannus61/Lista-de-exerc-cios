@@ -1,0 +1,50 @@
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView, useWindowDimensions, ScrollView } from 'react-native';
+
+export default function App() {
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={[styles.grid, { flexDirection: isLandscape ? 'row' : 'column' }]}>
+        <View style={[styles.card, { width: isLandscape ? '48%' : '90%' }]}>
+          <Text style={styles.cardText}>Card 1</Text>
+        </View>
+        <View style={[styles.card, { width: isLandscape ? '48%' : '90%' }]}>
+          <Text style={styles.cardText}>Card 2</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f2f5',
+  },
+  grid: {
+    padding: 10,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  card: {
+    height: 150,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  cardText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+});
